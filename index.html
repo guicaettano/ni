@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nosso Amor</title>
+  <title>Para Nicole</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -27,6 +27,9 @@
 </head>
 <body class="text-white font-sans">
 
+  <!-- Corações animados -->
+  <div id="falling-hearts" class="pointer-events-none fixed inset-0 z-10"></div>
+
   <!-- Página de senha -->
   <section id="senha" class="h-screen flex flex-col justify-center items-center text-center p-6 text-pink-900">
     <h1 class="text-4xl font-bold mb-6">Bem-vinda, momooor 💖</h1>
@@ -37,7 +40,7 @@
   </section>
 
   <!-- Página Inicial - Dia dos Namorados -->
-  <section id="inicioNamorados" class="hidden h-screen flex flex-col justify-center items-center text-center bg-gradient-to-tr from-pink-300 to-pink-500 text-white p-6">
+  <section id="inicioNamorados" class="hidden h-screen flex flex-col justify-center items-center text-center p-6">
     <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animate-fade-in">Feliz Dia dos Namorados, meu amor!</h1>
     <p class="text-2xl md:text-3xl mb-8 animate-fade-in delay-200">O primeiro de muitos que quero passar ao seu ladoo!</p>
     <button onclick="nextPage()" class="w-20 h-20 rounded-full bg-white text-pink-600 text-xl font-bold shadow-md hover:bg-pink-100 transition">➜</button>
@@ -105,9 +108,9 @@ Feliz Dia dos Namorados, meu amor. Que esse seja o primeiro de uma vida inteira 
 
   <!-- Página 4 -->
   <section id="final" class="hidden h-screen bg-pink-100 text-pink-900 flex flex-col justify-center items-center p-6">
-  <h2 class="text-3xl font-bold mb-4">Feliz Dia dos Namorados</h2>
+  <h2 class="text-3xl font-bold mb-4">Feliz Dia dos Namorados!!</h2>
   <p class="text-xl text-center mb-6 max-w-xl">
-    Eu não consigo segurar o quanto sou feliz por ter você. Esse é só o começo de tudo que ainda vamos viver juntos.
+    Eu não consigo segurar o quanto sou feliz por ter você. Esse é só o começo de tudo que ainda vamos viver juntos. Eu te amo demaaaaais!!!
   </p>
   <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4lAEnJjIV6Nxj5lVjRQkGC?utm_source=generator&theme=0" width="300" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   <button onclick="revealGift()" class="bg-pink-700 text-white px-6 py-2 rounded-full font-bold hover:bg-pink-800 mt-6">Clique aqui!</button>
@@ -182,6 +185,54 @@ Feliz Dia dos Namorados, meu amor. Que esse seja o primeiro de uma vida inteira 
         sections[current].classList.remove('hidden');
       }, 3000);
     }
+
+    // Corações caindo (mais fortes e em maior quantidade)
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.innerHTML = '❤️';
+    heart.style.position = 'absolute';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (32 + Math.random() * 40) + 'px'; // maiores
+    heart.style.top = '-40px';
+    heart.style.opacity = Math.random() * 0.3 + 0.7; // mais opacos (0.7 a 1)
+    heart.style.pointerEvents = 'none';
+    heart.style.transition = 'transform 0.2s';
+    heart.style.filter = 'drop-shadow(0 4px 12px #b91c1c)'; // sombra vermelha forte
+    heart.style.textShadow = '0 2px 8px #b91c1c, 0 0 2px #fff'; // brilho extra
+    document.getElementById('falling-hearts').appendChild(heart);
+
+    const duration = 3 + Math.random() * 2.5; // mais rápido
+    const translateX = (Math.random() - 0.5) * 120;
+
+    setTimeout(() => {
+      heart.style.transition = `top ${duration}s linear, left ${duration}s linear, opacity 0.5s`;
+      heart.style.top = '110vh';
+      heart.style.left = `calc(${heart.style.left} + ${translateX}px)`;
+      heart.style.opacity = 0.2;
+    }, 10);
+
+    setTimeout(() => {
+      heart.remove();
+    }, duration * 1000);
+  }
+
+  // Ativa corações apenas nas páginas desejadas
+  function heartsActive() {
+    const visibleSections = [
+      document.getElementById('inicioNamorados'),
+      document.querySelectorAll('section')[2],
+      document.getElementById('timeline')
+    ];
+    return Array.from(visibleSections).some(sec => sec && !sec.classList.contains('hidden'));
+  }
+
+  setInterval(() => {
+    if (heartsActive()) {
+      // Cria de 2 a 4 corações por vez para aumentar a quantidade
+      const qtd = 2 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < qtd; i++) createHeart();
+    }
+  }, 250);
   </script>
 </body>
 </html>

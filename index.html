@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nosso Amor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to top right, #fbc2eb, #a6c1ee);
+      overflow-x: hidden;
+    }
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid white;
+      animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+  </style>
+</head>
+<body class="text-white font-sans">
+
+  <!-- Página de senha -->
+  <section id="senha" class="h-screen flex flex-col justify-center items-center text-center p-6 text-pink-900">
+    <h1 class="text-4xl font-bold mb-6">Bem-vinda, momooor 💖</h1>
+    <p class="mb-4 text-lg">Digite a senha para acessar:</p>
+    <input id="inputSenha" type="password" placeholder="Senha" class="mb-4 px-4 py-2 rounded border border-pink-400 text-center text-lg focus:outline-none focus:ring-2 focus:ring-pink-400" />
+    <button onclick="verificarSenha()" class="bg-pink-600 text-white px-6 py-2 rounded-full font-bold hover:bg-pink-700 transition">Entrar</button>
+    <p id="erroSenha" class="mt-4 text-red-600 hidden">Escreveu errado ni kkkk. Tenta de novo.</p>
+  </section>
+
+  <!-- Página Inicial - Dia dos Namorados -->
+  <section id="inicioNamorados" class="hidden h-screen flex flex-col justify-center items-center text-center bg-gradient-to-tr from-pink-300 to-pink-500 text-white p-6">
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animate-fade-in">Feliz Dia dos Namorados, meu amor!</h1>
+    <p class="text-2xl md:text-3xl mb-8 animate-fade-in delay-200">O primeiro de muitos que quero passar ao seu ladoo!</p>
+    <button onclick="nextPage()" class="w-20 h-20 rounded-full bg-white text-pink-600 text-xl font-bold shadow-md hover:bg-pink-100 transition">➜</button>
+  </section>
+
+  <!-- Página 1 -->
+  <section class="hidden h-screen flex flex-col justify-center items-center text-center p-6">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in">Hoje é o nosso dia...</h1>
+    <p class="text-xl md:text-2xl mb-8 animate-fade-in">...mas o que a gente tem é pra sempre.</p>
+    <button onclick="nextPage()" class="bg-white text-pink-600 px-6 py-3 rounded-full font-bold shadow-lg hover:bg-pink-100 transition">Continuar</button>
+  </section>
+
+  <!-- Página 2 -->
+  <section id="timeline" class="hidden h-screen flex flex-col justify-center items-center p-6 text-pink-700">
+    <h2 class="text-3xl font-bold mb-4">Nossa História</h2>
+    <div class="space-y-4 max-w-xl">
+      <div>
+        <h3 class="text-xl font-semibold">❤️ Primeira vez segurando as mãos</h3>
+        <p>Foi ali que tudo começou, e eu já sabia que seria especial. Você se lembra, nossos corações dispararam e comecei a suar KKKKKKKKK. Saudadess.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold">💌 Primeiro "eu te amo"</h3>
+        <p>O coração bateu mais forte ainda, mas era certeza: era você.</p>
+      </div>
+    </div>
+    <button onclick="nextPage()" class="mt-8 bg-pink-600 text-white px-6 py-2 rounded-full font-bold hover:bg-pink-700">Próximo</button>
+  </section>
+
+  <!-- Página 3 -->
+  <section id="carta" class="hidden h-screen bg-pink-50 text-pink-900 flex flex-col justify-center items-center p-6">
+    <h2 class="text-3xl font-bold mb-4">Minha Carta pra Você</h2>
+    <p id="typewriter" class="text-xl max-w-2xl w-full"></p>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const cartaTexto = `Oi, meu amor. Hoje é o Dia dos Namorados, eu sei que é bom acordar cedo e receber esse presente KKKKKKKKK.
+  Hoje é o nosso primeiro Dia dos Namorados juntos. E mesmo sendo o primeiro, eu já sinto que é só mais uma entre as muitas datas lindas que ainda vamos viver lado a lado.
+
+Desde que você entrou na minha vida, tudo ficou mais leve. O mundo parece menos complicado, e os dias mais bonitos – mesmo os mais nublados. Com você, o simples vira especial. O silêncio vira conforto. O abraço vira lar.
+
+Você me mostrou que o amor não precisa ser perfeito pra ser verdadeiro. Basta ser sincero, leve, cúmplice e cheio de vontade de crescer junto. E é isso que eu sinto com você. Uma vontade enorme de te fazer sorrir todos os dias, de ser o seu porto seguro, e de viver cada capítulo da nossa história com intensidade e carinho.
+
+Hoje, mais do que dizer que te amo, eu quero te agradecer. Por ser você. Por me escolher. Por confiar em mim. Por cuidar de nós. Você é meu amor, minha inspiração, minha melhor escolha.
+
+Feliz Dia dos Namorados, meu amor. Que esse seja o primeiro de uma vida inteira ao seu lado. ❤️`;
+        const typewriter = document.getElementById('typewriter');
+        let i = 0;
+        function type() {
+          if (i < cartaTexto.length) {
+            typewriter.innerHTML += cartaTexto.charAt(i) === '\n' ? '<br>' : cartaTexto.charAt(i);
+            i++;
+            setTimeout(type, 40);
+          }
+        }
+        // Só inicia quando a seção for exibida
+        const observer = new MutationObserver(() => {
+          if (!typewriter.parentElement.classList.contains('hidden') && typewriter.innerHTML === "") {
+            type();
+          }
+        });
+        observer.observe(typewriter.parentElement, { attributes: true, attributeFilter: ['class'] });
+      });
+    </script>
+  <button onclick="nextPage()" class="mt-10 bg-pink-600 text-white px-6 py-2 rounded-full font-bold hover:bg-pink-700">Mais uma coisa...</button>
+  </section>
+
+  <!-- Página 4 -->
+  <section id="final" class="hidden h-screen bg-pink-100 text-pink-900 flex flex-col justify-center items-center p-6">
+  <h2 class="text-3xl font-bold mb-4">Feliz Dia dos Namorados</h2>
+  <p class="text-xl text-center mb-6 max-w-xl">
+    Eu não consigo segurar o quanto sou feliz por ter você. Esse é só o começo de tudo que ainda vamos viver juntos.
+  </p>
+  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4lAEnJjIV6Nxj5lVjRQkGC?utm_source=generator&theme=0" width="300" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <button onclick="revealGift()" class="bg-pink-700 text-white px-6 py-2 rounded-full font-bold hover:bg-pink-800 mt-6">Clique aqui!</button>
+  </section>
+
+  <!-- Página 5 - Código surpresa -->
+  <!-- Surpresa Extra (aparece na página 4 ao clicar no botão) -->
+  <div id="gift" class="hidden fixed inset-0 flex flex-col justify-center items-center bg-white bg-opacity-90 z-50 p-6">
+  <h2 class="text-3xl font-bold mb-4 text-pink-700">Surpresa Extra</h2>
+  <p class="text-xl max-w-xl text-center mb-4 text-pink-700">Use o código abaixo para resgatar algo especial nos próximos dias:</p>
+  <div class="bg-pink-200 text-pink-900 text-2xl font-mono px-8 py-4 rounded-lg shadow-md">NICOLE4EVER</div>
+  <p class="mt-4 text-sm text-pink-700">(Eu te amo!)</p>
+  </div>
+
+  <!-- Página 4 -->
+  <section id="final" class="hidden h-screen bg-pink-100 text-pink-900 flex flex-col justify-center items-center p-6">
+    <h2 class="text-3xl font-bold mb-4">Feliz Dia dos Namorados</h2>
+    <p class="text-xl text-center mb-6 max-w-xl">
+      Eu não consigo segurar o quanto sou feliz por ter você. Esse é só o começo de tudo que ainda vamos viver juntos.
+    </p>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4lAEnJjIV6Nxj5lVjRQkGC?utm_source=generator&theme=0" width="300" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+    <button onclick="revealGift()" class="bg-pink-700 text-white px-6 py-2 rounded-full font-bold hover:bg-pink-800">Clique aqui!</button>
+    <div id="gift" class="hidden flex flex-col justify-center items-center bg-white bg-opacity-90 z-50 p-6 absolute inset-0"></div>
+    <h2 class="text-3xl font-bold mb-4 text-pink-700">Surpresa Extra</h2>
+    <p class="text-xl max-w-xl text-center mb-4 text-pink-700">Use o código abaixo para resgatar algo especial nos próximos dias:</p>
+    <div class="bg-pink-200 text-pink-900 text-2xl font-mono px-8 py-4 rounded-lg shadow-md">NICOLE24</div>
+    <p class="mt-4 text-sm text-pink-700">(Eu te amo!)</p>
+  </div>
+  </section>
+
+  
+
+  <script>
+    let current = 0;
+    const sections = document.querySelectorAll('section');
+
+    window.onload = function () {
+      sections.forEach((sec, idx) => {
+        if (idx !== 0) sec.classList.add('hidden');
+        else sec.classList.remove('hidden');
+      });
+      current = 0;
+    };
+
+    function verificarSenha() {
+      const senha = document.getElementById('inputSenha').value;
+      const erro = document.getElementById('erroSenha');
+      if (senha === "Nicole" || senha === "nicole") {
+        sections[0].classList.add('hidden');
+        sections[1].classList.remove('hidden'); // Vai para "Feliz Dia dos Namorados"
+        erro.classList.add('hidden');
+        current = 1;
+      } else {
+        erro.classList.remove('hidden');
+      }
+    }
+
+    function nextPage() {
+      if (current < sections.length - 1) {
+        sections[current].classList.add('hidden');
+        current++;
+        sections[current].classList.remove('hidden');
+      }
+    }
+
+    function revealGift() {
+      document.getElementById('gift').classList.remove('hidden');
+      setTimeout(() => {
+        sections[current].classList.add('hidden');
+        current++;
+        sections[current].classList.remove('hidden');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
